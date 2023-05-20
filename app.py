@@ -65,3 +65,8 @@ def calculate_gain():
     
     return json.dumps({"frequencies":frequencies.tolist(),"magnitude" : Magnitude_Gain.tolist() , "phase": Phase_Gain.tolist() })
 
+
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)
+    
+    

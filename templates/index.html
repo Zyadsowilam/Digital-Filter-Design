@@ -6,66 +6,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- CSS and Fonts -->
+   <link rel="stylesheet" href="../static/css/index.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   
-    <!-- Plotly -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+     <!-- Plotly -->
+
+     <!-- Plotly for data visualization -->
+     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="/static/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
   <title>Z-Plane Filter Designer</title>
 </head>
 <body>
   <!-- First Column -->
-  <div class="z-plane">
+  <div class="z-plane" id="First-Column" style="margin-left: 10px;">
+  <div class="z-plane" id="zplane-container">
 
-    <div class="unitcircle">
-      <canvas id="canvas" class="canvas"></canvas>
-    </div>
    
-    <div class="graph_buttons">
+    
+    <div class="graph" >
+      <canvas id="zplane-canvas"></canvas></div>
+    
+    </div> 
 
-      <div class="input_container">
-        <input type="radio" name="filter_button" id="zero" value="zero" checked>
-        <div class="radio_tile">
-          <span class="material-symbols-outlined">exposure_zero</span>
-          <label for="zero">Zero</label>
-        </div>    
-      </div>
-
-      <div class="input_container">
-        <input type="radio" name="filter_button" id="pole" value="pole">
-        <div class="radio_tile">
-          <span class="material-symbols-outlined">close</span>
-          <label for="pole">Pole</label>
-        </div> 
-      </div>
-
-      <div class="clear">
-        <button class="clear_button" id="clear_all">Clear All</button>
-      </div>
-
-      <div class="clear">
-        <button class="clear_button" id="clear_zeros">Clear Zeros</button>
-      </div>
-
-      <div class="clear">
-        <button class="clear_button" id="clear_poles">Clear Poles</button>
-      </div>
-
-    </div>
-
+    
+<div id="controls" class="graph_buttons">
+  
+  <div class="inpu">
+    <button class="circle-zero"  id="draw-zeros" ><div class="radi">
+      <span class="material-symbols-outlined">exposure_zero</span>
+      <label for="zero">Zero</label></button>
   </div>
 
-  <!-- Second column -->
-  <!-- Add your content for the second column here -->
+  <div class="inpu">
+    <button id="draw-poles" class="circle-zero"><div class="radi"><span class="material-symbols-outlined">close</span>
+      <label for="pole">Pole</label></div>
+    </button>
+    </div>
 
+
+    <div class="input_container">
+    <input type="checkbox" name="filter_btn" id="add-conjugate" >
+    <div class="radio_tile">
+        <span class="material-symbols-outlined">add</span>
+        <label for="add-conjugate">Conjugates</label>
+    </div>
+</div>
+
+<div class="clear"><button id="clear-zeros" class="clear_btn">Clear <span class="material-symbols-outlined">exposure_zero</span></button></div>
+<div class="clear"><button id="clear-poles" class="clear_btn">Clear <div class="radi"><span class="material-symbols-outlined"id="t">close</span></button></div>
+<div class="clear"><button id="clear-all" class="clear_btn">Clear <br>All</button></div>
+
+
+  
+  
+
+
+  </div> 
+
+
+</div>
   <script src="/static/script.js"></script>
 </body>
 </html>
