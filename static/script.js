@@ -361,3 +361,20 @@ for(let pole of poles_list){
     //BACKEND RESPONSE
 };
 
+// Magnitude and phase response 
+// Client side send poles and zeros ---=> Get Mag and phase from backend
+
+function getMagnitude_Phase_response(){
+
+  $.ajax({
+
+  
+
+
+
+
+
+  })
+
+
+};
