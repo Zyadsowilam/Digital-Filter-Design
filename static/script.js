@@ -1,8 +1,8 @@
 let canvas = document.getElementById("zplane-canvas");
 let ctx = canvas.getContext("2d");
 
-canvas.height = 360;
-canvas.width = 360;
+canvas.height = 500;
+canvas.width = 500;
 const rect = canvas.getBoundingClientRect(); //store position and size info of the canvas on the screen
 
 // For deleting individual poles and zeros
