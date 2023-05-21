@@ -81,10 +81,10 @@
 
 
     <div class="input_container">
-    <input type="checkbox" name="filter_btn" id="add-conjugate" >
+    <input type="checkbox" name="filter_btn" id="add_conjugate" >
     <div class="radio_tile">
         <span class="material-symbols-outlined">z*</span>
-        <label for="add-conjugate">conjugate</label>
+        <label for="add_conjugate">conjugate</label>
     </div>
     
 </div>
@@ -95,6 +95,32 @@
 
   </div>
 </div>
+
+<!--Magnitude and phase plots column-->
+
+<div class="mag_phase_response_col">
+
+  <div class="container_plot">
+    <div id="magnitude_response" class="resp_plot"></div>
+    </div>
+
+    <div class="container_plot">
+      <div id="phase_response" class="resp_plot"></div>
+
+    </div>
+
+    <div class="all_pass">
+      <button class="allpass_btn" id="allpass_btn">All-Pass Filters</button>
+    </div>
+</div>
+
+  <!--Last col Real-Time Filtering -->
+  <div class="signal">
+
+  </div>
+
+
+
   <script src="/static/script.js">
   </script>
 </body>

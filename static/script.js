@@ -325,6 +325,7 @@ y = -(shape.y - 180)/160;
 if(shape.type=="zero"){
 
     zeros_list.push({real:x , img:y})
+    console.log(zeros_list);
 }
 
 else{

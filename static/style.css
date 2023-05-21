@@ -240,3 +240,58 @@ input:checked+.radio_tile span {
   background: white;
   border-radius: 10px;
 }
+
+/* Magnitude-Phase_Response Col   */
+.mag_phase_response_col{
+  background-color: rgb(238, 238, 238);
+  width: 600px;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  
+
+}
+
+.container_plot{
+  background-color: white;
+width: 550px;
+height: 250px;
+transform: translateY(-42px);
+padding: 10px;
+border-radius: 10px;
+margin-bottom: 15px;
+
+}
+
+.resp_plot{
+  background-color: white;
+  width: 550px;
+  height: 260px;
+}
+
+.allpass_btn{
+
+  position: relative;
+  background-color: rgb(33, 34, 37);
+  width: 13rem;
+  height: 3rem;
+  border: none;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: ease 0.3s;
+
+}
+
+.allpass_btn:hover{
+  box-shadow: 0 0 12px rgb(33, 34, 37);
+}
+
+.allpass_btn:active{
+  scale: 0.9;
+}
+
