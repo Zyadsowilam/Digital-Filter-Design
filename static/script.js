@@ -1,5 +1,6 @@
 let canvas = document.getElementById("zplane-canvas");
 let ctx = canvas.getContext("2d");
+let conjugateindex=[]
 
 canvas.height = 500;
 canvas.width = 500;
@@ -39,6 +40,7 @@ setUpCanvas();
 
 var zero_btn = document.getElementById("draw-zeros");
 var pole_btn = document.getElementById("draw-poles");
+var conjugate_btn= document.getElementById("add_conjugate");
 
 //clear buttons
 var All_clear_button = document.getElementById("clear-all"); 
@@ -301,15 +303,36 @@ convert_to_cartesian(shapes);
 };
 
 clear_zeros_button.onclick = ()=>{
-shapes = shapes.filter(shape=> shapes.type!=="zero");
-Shapes_Draw(shapes);
-convert_to_cartesian(shapes);
+  zeros_list = []
+  for (let i = 0; i < shapes.length; i++) {
+    let shape = shapes[i];
+    
+    if (shape.type == "zero") {
+        shapes.splice(i, 1); // Remove the current shape from the array
+        i--; // Adjust the index to account for the removed element
+    }
+}
+
+  
+  Shapes_Draw(shapes);
+  convert_to_cartesian(shapes);
 
 };
 
 clear_poles_button.onclick = ()=>{
-shapes = shapes.filter(shape => shapes.type!=="pole")
-convert_to_cartesian(shapes);
+  poles_list = []
+  for (let i = 0; i < shapes.length; i++) {
+    let shape = shapes[i];
+    
+    if (shape.type == "pole") {
+        shapes.splice(i, 1); // Remove the current shape from the array
+        i--; // Adjust the index to account for the removed element
+    }
+}
+
+  
+  Shapes_Draw(shapes);
+  convert_to_cartesian(shapes);
 };
 
 function convert_to_cartesian(shapes){
