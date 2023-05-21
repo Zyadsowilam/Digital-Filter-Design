@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- CSS and Fonts -->
-   <link rel="stylesheet" href="../static/css/index.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -26,8 +25,35 @@
   <title>Z-Plane Filter Designer</title>
 </head>
 <body>
+<!--
+  <div class="wrapper">
+
+    <div class="content">
+     <ul class="delete_menu">  
+
+      <li class="item" id="delete"> 
+        <span class="material-symbols-outlined">delete</span>
+        <p>Delete</p>
+
+      </li>
+       <li class="item" id="close">
+        <span class="material-symbols-outlined"> cancel</span>
+        <p>Close</p>
+        </li>
+
+      </ul>
+
+
+    </div>
+
+    </div>
+
+  -->
+
+
+
   <!-- First Column -->
-  <div class="z-plane" id="First-Column" style="margin-left: 10px;">
+  <div class="z-plane" id="First-Column" >
   <div class="z-plane" id="zplane-container">
 
    
@@ -43,12 +69,13 @@
   <div class="inpu">
     <button class="circle-zero"  id="draw-zeros" ><div class="radi">
       <span class="material-symbols-outlined">exposure_zero</span>
-      <label for="zero">Zero</label></button>
+      <label for="draw-zero">Zero</label></div>
+    </button>
   </div>
 
   <div class="inpu">
     <button id="draw-poles" class="circle-zero"><div class="radi"><span class="material-symbols-outlined">close</span>
-      <label for="pole">Pole</label></div>
+      <label for="draw-poles">Pole</label></div>
     </button>
     </div>
 
@@ -59,21 +86,16 @@
         <span class="material-symbols-outlined">add</span>
         <label for="add-conjugate">Conjugates</label>
     </div>
+    
 </div>
 
 <div class="clear"><button id="clear-zeros" class="clear_btn">Clear <span class="material-symbols-outlined">exposure_zero</span></button></div>
 <div class="clear"><button id="clear-poles" class="clear_btn">Clear <div class="radi"><span class="material-symbols-outlined"id="t">close</span></button></div>
 <div class="clear"><button id="clear-all" class="clear_btn">Clear <br>All</button></div>
 
-
-  
-  
-
-
-  </div> 
-
-
+  </div>
 </div>
-  <script src="/static/script.js"></script>
+  <script src="/static/script.js">
+  </script>
 </body>
 </html>
