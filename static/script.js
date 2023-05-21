@@ -152,8 +152,11 @@ else{
 canvas.onclick = (event)=>{
 //menu.style.visibility = "hidden";
 to_draw = true;
-start_x = parseInt(event.clientX - rect.left); 
-start_y = parseInt(event.clientY - rect.top);
+start_x = parseInt(event.offsetX); 
+start_y = parseInt(event.offsetY);
+
+let distance = Math.sqrt(Math.pow(start_x - 180, 2) + Math.pow(start_y - 180, 2));
+let radius = 160;
 
 // check if new point is within boundries of already existing point
 for(let shape of shapes)
@@ -164,6 +167,7 @@ for(let shape of shapes)
   }
 }
 
+if(distance<radius){
 if(to_draw)
 {
 
@@ -180,6 +184,8 @@ else{
 }
 to_draw = false;
 convert_to_cartesian(shapes);
+}
+
 
 }
 
@@ -278,12 +284,12 @@ index++;
 
 // };
 
-delete_button.onclick = ()=>{
-//menu.style.visibility = "hidden";
-shapes.splice(selected_shape,1);
-Shapes_Draw(shapes);
-convert_to_cartesian(shapes);
-};
+// delete_button.onclick = ()=>{
+// //menu.style.visibility = "hidden";
+// shapes.splice(selected_shape,1);
+// Shapes_Draw(shapes);
+// convert_to_cartesian(shapes);
+// };
 
 //Clear buttons(All,zeros,poles)
 
