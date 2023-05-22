@@ -35,12 +35,12 @@ def calculate_gain():
     # Retrieve poles and zeros from JS to calculate magnitude and phase response to be sent to JS to update plots
     
     
-    for poles in data_zeros_poles[0]:
+    for poles in data_zeros_poles[1]:
         pole_real = poles["real"]
         pole_imag = poles["img"]
         poles_list.append(pole_real + pole_imag*1j)
         
-    for zeros in data_zeros_poles[1]:
+    for zeros in data_zeros_poles[0]:
         zero_real = zeros["real"]
         zero_imag = zeros["img"]
         zeros_list.append(zero_real + zero_imag*1j )

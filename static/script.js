@@ -137,7 +137,6 @@ return false;
 
 
 function Shapes_Draw(shapes){
-console.log(shapes);
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 setUpCanvas();
@@ -148,7 +147,6 @@ for(let shape of shapes)
 if(shape.type == "zero"){
   // console.log(checkconj);
     drawZero(shape.x,shape.y);
-    console.log(checkconj);
     // if(checkconj === 1){
     //   console.log(-shape.y);
     //   drawZero(shape.x,-shape.y);
@@ -204,7 +202,7 @@ if(draw_shape == "zero")
 
       drawZero(draw_x,draw_y);
       shapes.push({x:draw_x, y:draw_y,type:"zero",conj:index});
-      console.log(shapes);
+
     }
 }
 else{
@@ -223,7 +221,6 @@ else{
 
       drawPole(draw_x,draw_y);
       shapes.push({x:draw_x, y:draw_y,type:"pole",conj:index});
-      console.log(shapes);
 
       
     }
@@ -305,32 +302,32 @@ start_y = end_y;
 };
 
 // Delete single zeros or poles
-canvas.addEventListener('contextmenu',function(e){
-e.preventDefault();
-start_x = e.offsetX, start_y = e.offsetY;
+// canvas.addEventListener('contextmenu',function(e){
+// e.preventDefault();
+// start_x = e.offsetX, start_y = e.offsetY;
 
-let menu_appear = false;
-let index = 0;
-for(let shape of shapes){
-if(is_mousepointer_in_shape(shape)){
+// let menu_appear = false;
+// let index = 0;
+// for(let shape of shapes){
+// if(is_mousepointer_in_shape(shape)){
 
-    selected_shape = index;
-    menu_appear = true;
-}
+//     selected_shape = index;
+//     menu_appear = true;
+// }
 
-index++;
-
-}
-
-// if(menu_appear){
-
-//     menu.style.left = '${start_x}px';
-//     menu.style.top = '${start_y + 180}px';
-//     menu.style.visibility = "visible";
+// index++;
 
 // }
 
-});
+// // if(menu_appear){
+
+// //     menu.style.left = '${start_x}px';
+// //     menu.style.top = '${start_y + 180}px';
+// //     menu.style.visibility = "visible";
+
+// // }
+
+// });
 
 
 //Delete menu buttons
@@ -405,7 +402,6 @@ if(shape.type=="zero"){
 
     zeros_list.push({real:x , img:y})
     
-    console.log(zeros_list);
 }
 
 else{
@@ -414,8 +410,10 @@ poles_list.push({real : x,img:y})
 }
 
 }
-    
-//BACKEND RESPONSE FUNC
+ 
+console.log(zeros_list);
+console.log(poles_list);
+getMagnitude_Phase_response();
 
 };
 
@@ -437,23 +435,89 @@ for(let pole of poles_list){
 
     Shapes_Draw(shapes);
 
-    //BACKEND RESPONSE
+    getMagnitude_Phase_response();
 };
 
 // Magnitude and phase response 
 // Client side send poles and zeros ---=> Get Mag and phase from backend
 
+
 function getMagnitude_Phase_response(){
-
+//Asynchronus Javascript and XML
+//To dynamically update content without reloading the whole page (only parts of web page)
   $.ajax({
+    dataType : "json",
+    contentType : "application/json ; charset=utf-8",
+    data : JSON.stringify([zeros_list,poles_list]), //Send data (zeros,poles) to server (backend)
+    type: 'POST', //POST (like submitting a form)
+    url: 'http://127.0.0.1:5000/calcgain',  //Sent to this function in backend
+    //If got response(success)  data from backend (mag and phase response)is sent to the frontend (JS) 
+    //to dynamic, real-time update of the plots
+    success: function(data_mag_phase){
+     
+        Frequencies = data_mag_phase["frequencies"];
+        magnitude_gain = data_mag_phase["magnitude"];
+        phase_gain = data_mag_phase["phase"];
 
-  
+
+        var update_magnitude = { 'x':[Frequencies], 'y':[magnitude_gain]  };
+        var phase_update = { 'x':[Frequencies], 'y':[phase_gain]  };
 
 
 
 
+
+        Plotly.update("magnitude_response",update_magnitude);
+        Plotly.update("phase_response", phase_update); 
+
+    }
 
   })
 
 
 };
+
+/*
+Update Plots of magnitude and phase response
+
+Parameters:
+title_graph: The title of the response drawn
+label_gain: label of 
+frequency_x: X-axis--> Frequencies
+gain_y: Magnitude or phase gain (Y-axis)
+ID_div: ID of the plot container 
+
+*/
+
+function mag_phase_response_draw(title_graph,label_gain,frequency_x,gain_y,ID_div){
+
+
+var record_response = {
+    x: frequency_x,
+    y: gain_y,
+    type: "scatter",
+    mode: "lines"
+
+};
+
+var graph_layout_properties = {
+    width: 550,
+    height: 250,
+    margin:{t:40,b:45,l:55,r:20},
+    
+    xaxis:{title: 'Frequency[Hz]'},  //frequency axis for both gains(Mag,phase)
+    yaxis:{title: label_gain},
+    title: title_graph
+
+};
+
+var graph_data = [record_response];
+
+Plotly.newPlot(ID_div,graph_data,graph_layout_properties);
+
+
+};
+
+//Initialize Plots (Magnitude and phase plots)
+mag_phase_response_draw("Magnitude Response","Amplitude [db]",[],[],"magnitude_response");
+mag_phase_response_draw("Phase Response","Angle [rad]",[],[],"phase_response");
