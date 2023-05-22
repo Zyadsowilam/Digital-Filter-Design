@@ -193,7 +193,8 @@ if(draw_shape == "zero")
     shapes.push({x:start_x, y:start_y,type:"zero"});
     
     if(checkconj === 1){
-     
+      let index = shapes.length - 1;
+      shapes[index].conj=index+1;
       let conv_pix_x=(start_x - 180)/160;
       let conv_pix_y=-(start_y - 180)/160;
       let new_y=-conv_pix_y;
@@ -202,7 +203,8 @@ if(draw_shape == "zero")
       
 
       drawZero(draw_x,draw_y);
-      shapes.push({x:draw_x, y:draw_y,type:"zero"});
+      shapes.push({x:draw_x, y:draw_y,type:"zero",conj:index});
+      console.log(shapes);
     }
 }
 else{
@@ -210,7 +212,8 @@ else{
     drawPole(start_x,start_y);
     shapes.push({x:start_x,y:start_y,type:"pole"});
     if(checkconj === 1){
-     
+     let index = shapes.length - 1;
+     shapes[index].conj=index+1;
       let conv_pix_x=(start_x - 180)/160;
       let conv_pix_y=-(start_y - 180)/160;
       let new_y=-conv_pix_y;
@@ -219,7 +222,10 @@ else{
       
 
       drawPole(draw_x,draw_y);
-      shapes.push({x:draw_x, y:draw_y,type:"pole"});
+      shapes.push({x:draw_x, y:draw_y,type:"pole",conj:index});
+      console.log(shapes);
+
+      
     }
 
 }
@@ -273,6 +279,16 @@ let current_shape_selected = shapes[selected_shape];
 current_shape_selected.x +=diff_x;
 current_shape_selected.y +=diff_y;
 
+if(current_shape_selected.hasOwnProperty("conj")){
+  console.log("s");
+let conj_drag=shapes[current_shape_selected.conj];
+conj_drag.x +=diff_x;
+let conv_pix_y=-(current_shape_selected.y - 180)/160;
+let new_y=-conv_pix_y;
+
+conj_drag.y=-(new_y*160)+180;
+
+}
 //Clear canvas, redraw unit circle and axis, then draw all shapes in shapes array
 Shapes_Draw(shapes);
 
@@ -385,6 +401,7 @@ x= (shape.x - 180)/160;
 y = -(shape.y - 180)/160;
 
 if(shape.type=="zero"){
+  
 
     zeros_list.push({real:x , img:y})
     
