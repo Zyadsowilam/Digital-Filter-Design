@@ -1,7 +1,8 @@
 let canvas = document.getElementById("zplane-canvas");
 let ctx = canvas.getContext("2d");
 let conjugateindex=[]
-
+var conjugate_btn= document.getElementById("add_conjugate");
+var checkconj=0;
 canvas.height = 500;
 canvas.width = 500;
 const rect = canvas.getBoundingClientRect(); //store position and size info of the canvas on the screen
@@ -40,14 +41,20 @@ setUpCanvas();
 
 var zero_btn = document.getElementById("draw-zeros");
 var pole_btn = document.getElementById("draw-poles");
-var conjugate_btn= document.getElementById("add_conjugate");
 
 //clear buttons
 var All_clear_button = document.getElementById("clear-all"); 
 var clear_zeros_button = document.getElementById("clear-zeros");
 var clear_poles_button = document.getElementById("clear-poles");
 
-
+conjugate_btn.addEventListener("change", function() {
+  if (conjugate_btn.checked) {
+      checkconj = 1;
+  } else {
+      checkconj = 0;
+  }
+  
+});
 //Setting draw shape variable to zero or pole  
 var draw_shape = "zero"; // default
 zero_btn.style.backgroundColor =" rgba(18, 82, 119, 1)" ;
@@ -130,15 +137,22 @@ return false;
 
 
 function Shapes_Draw(shapes){
+console.log(shapes);
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 setUpCanvas();
 
 for(let shape of shapes)
 {
+  // console.log('t');
 if(shape.type == "zero"){
-
+  // console.log(checkconj);
     drawZero(shape.x,shape.y);
+    console.log(checkconj);
+    // if(checkconj === 1){
+    //   console.log(-shape.y);
+    //   drawZero(shape.x,-shape.y);
+    // }
 }
 else{
 
@@ -177,11 +191,36 @@ if(draw_shape == "zero")
 {
     drawZero(start_x,start_y);
     shapes.push({x:start_x, y:start_y,type:"zero"});
+    
+    if(checkconj === 1){
+     
+      let conv_pix_x=(start_x - 180)/160;
+      let conv_pix_y=-(start_y - 180)/160;
+      let new_y=-conv_pix_y;
+      let draw_x= (conv_pix_x*160)+180;
+      let draw_y=-(new_y*160)+180;
+      
+
+      drawZero(draw_x,draw_y);
+      shapes.push({x:draw_x, y:draw_y,type:"zero"});
+    }
 }
 else{
 
     drawPole(start_x,start_y);
     shapes.push({x:start_x,y:start_y,type:"pole"});
+    if(checkconj === 1){
+     
+      let conv_pix_x=(start_x - 180)/160;
+      let conv_pix_y=-(start_y - 180)/160;
+      let new_y=-conv_pix_y;
+      let draw_x= (conv_pix_x*160)+180;
+      let draw_y=-(new_y*160)+180;
+      
+
+      drawPole(draw_x,draw_y);
+      shapes.push({x:draw_x, y:draw_y,type:"pole"});
+    }
 
 }
 to_draw = false;
@@ -348,6 +387,7 @@ y = -(shape.y - 180)/160;
 if(shape.type=="zero"){
 
     zeros_list.push({real:x , img:y})
+    
     console.log(zeros_list);
 }
 
@@ -367,8 +407,7 @@ shapes = []
 let x = 0; 
 let y = 0;
 for(let zero of zeros_list){
-x=(zeros_list["real"]*160) + 180
-y=(zeros_list["img"]*160) +180
+
 shapes.push({x: x,y: y,type: "zero"});
 
 }
